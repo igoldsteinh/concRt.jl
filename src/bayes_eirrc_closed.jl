@@ -1,9 +1,4 @@
 #bayesian alpha model eirr
-using LinearAlgebra
-using ForwardDiff
-using NaNMath
-using Turing
-using LogExpFunctions
 
 @model function bayes_eirrc_closed!(outs_tmp,
                                     data_log_copies, 

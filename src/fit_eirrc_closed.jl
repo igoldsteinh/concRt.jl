@@ -1,9 +1,3 @@
-using Turing
-using Random
-using ForwardDiff
-using Logging
-using PreallocationTools
-Logging.disable_logging(Logging.Warn)
 ## Define closed form solution
 # include(projectdir("src/closed_soln_eirr_withincid.jl"))
 # ## Load Model

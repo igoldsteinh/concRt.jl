@@ -1,4 +1,3 @@
-using Distributions
 
 # credit to Damon Bayer for all of these helper functions
 """
