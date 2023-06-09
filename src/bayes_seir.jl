@@ -14,6 +14,8 @@
                                  nu_mean::Float64 = log(7/7),
                                  rho_case_sd::Float64 =  0.4,
                                  rho_case_mean::Float64 = -1.386294,
+                                 phi_sd::Float64 = 0.2,
+                                 phi_mean::Float64 = log(50),
                                  sigma_R0_sd::Float64 = 0.2,
                                  sigma_R0_mean::Float64 = log(0.1),
                                  S_SEI_sd::Float64 = 0.05,
