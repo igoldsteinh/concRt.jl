@@ -1,9 +1,8 @@
 
-
-Logging.disable_logging(Logging.Warn)
 function generate_pp_and_gq_eirrc(samples,
   data,
   obstimes,
+  param_change_times,
   seed::Int64 = 1,
   gamma_sd::Float64 = 0.2,
   gamma_mean::Float64 =log(1/4),
@@ -31,12 +30,6 @@ function generate_pp_and_gq_eirrc(samples,
   rt_init_mean::Float64 = log(0.88))
   obstimes = convert(Vector{Float64}, obstimes)
     # trying to avoid the stupid situation where we're telling to change at the end of the solver which doesn't make sense
-  if maximum(obstimes) % 7 == 0
-    param_change_max = maximum(obstimes) - 7
-  else
-    param_change_max = maximum(obstimes)
-  end
-  param_change_times = collect(7:7.0:param_change_max)
   outs_tmp = dualcache(zeros(6,length(1:obstimes[end])), 10)
 
 

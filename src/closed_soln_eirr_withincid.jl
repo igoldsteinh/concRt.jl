@@ -1,9 +1,6 @@
 # closed form solution for eirr model 
 # note this produces Nans when alpha = nu 
 # I'm hoping this can never happen irl but we'll have to see when we test it out
-function power(a,b)
-  a^b
-end 
 
 # current version which works well
 function new_eirrc_closed_solution!(outs_tmp, times, change_times, t0, alphas, init_conds, gamma, nu, eta) 

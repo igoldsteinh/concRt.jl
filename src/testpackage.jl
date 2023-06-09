@@ -15,6 +15,8 @@ using ForwardDiff
 using Logging
 using CSV
 using DataFrames
+using DifferentialEquations
+
 
 export optimize_many_MAP
 export ChainsCustomIndex
@@ -26,6 +28,14 @@ export GeneralizedTDist
 export power 
 export new_eirrc_closed_solution!
 export bayes_eirrc_closed!
+export bayes_eir_closed!
+export eir_closed_solution!
+export fit_eir_closed
+export generate_pp_and_gq_eir
+export generate_pp_and_gq_seir
+export fit_seir
+export seir_ode_log!
+export bayes_seir_cases
 # Write your package code here.
 include("optimize_many_MAP.jl")
 include("helper_functions.jl")
@@ -34,4 +44,12 @@ include("fit_eirrc_closed.jl")
 include("distribution_functions.jl")
 include("closed_soln_eirr_withincid.jl")
 include("bayes_eirrc_closed.jl")
+include("bayes_eir_cases.jl")
+include("closed_soln_eir.jl")
+include("fit_eir_closed.jl")
+include("generate_pp_and_gq_eir.jl")
+include("fit_seir.jl")
+include("generate_pp_and_gq_seir.jl")
+include("seir_ode_log.jl")
+include("bayes_seir.jl")
 end

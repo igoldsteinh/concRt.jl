@@ -1,5 +1,8 @@
 # julia helper functions
-
+function power(a,b)
+    a^b
+  end 
+  
 function ChainsCustomIndex(c::Chains, indices_to_keep::BitMatrix)
     min_length = minimum(mapslices(sum, indices_to_keep, dims = 1))
   v = c.value
