@@ -1,5 +1,5 @@
 # bayes seir model with case surveillance model 
-@model function bayes_seir_cases(data_cases, 
+@model function bayes_seir(data_cases, 
                                  obstimes, 
                                  param_change_times, 
                                  extra_ode_precision, 

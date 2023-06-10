@@ -2,6 +2,7 @@ function generate_pp_and_gq_seir(samples,
   data_cases,
   obstimes,
   param_change_times,
+  extra_ode_precision,
   seed::Int64 = 1,
   fit_abs_tol::Float64 = 1e-9,
   fit_rel_tol::Float64 = 1e-6,
@@ -32,11 +33,11 @@ function generate_pp_and_gq_seir(samples,
 
 
 
-  my_model = bayes_seir_cases(
+  my_model = bayes_seir(
     data_cases, 
     obstimes, 
     param_change_times, 
-    true, 
+    extra_ode_precision, 
     prob,
     fit_abs_tol,
     fit_rel_tol,
@@ -60,11 +61,11 @@ function generate_pp_and_gq_seir(samples,
 
   missing_data = repeat([missing], length(data))
 
-  my_model_forecast_missing = bayes_seir_cases(
+  my_model_forecast_missing = bayes_seir(
     missing_data, 
     obstimes, 
     param_change_times, 
-    true, 
+    extra_ode_precision, 
     prob,
     fit_abs_tol,
     fit_rel_tol,
