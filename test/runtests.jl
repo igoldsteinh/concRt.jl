@@ -42,5 +42,5 @@ end
     extra_ode_precision = true 
     n_samples::Int64 = 10
     n_chains::Int64 = 1
-    @test length(testpackage.fit_eirrc_closed(data, obstimes, param_change_times, extra_ode_precision, priors_only, n_samples, n_chains)) == 10
+    @test length(testpackage.fit_seirr(data, obstimes, param_change_times, extra_ode_precision, priors_only, n_samples, n_chains)) == 10
 end

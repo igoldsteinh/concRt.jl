@@ -36,6 +36,10 @@ export generate_pp_and_gq_seir
 export fit_seir
 export seir_ode_log!
 export bayes_seir_cases
+export fit_seirr
+export generate_pp_and_gq_seirr
+export bayes_seirr
+export seirr_ode_log!
 # Write your package code here.
 include("optimize_many_MAP.jl")
 include("helper_functions.jl")
@@ -52,4 +56,9 @@ include("fit_seir.jl")
 include("generate_pp_and_gq_seir.jl")
 include("seir_ode_log.jl")
 include("bayes_seir.jl")
+include("fit_seirr.jl")
+include("generate_pp_and_gq_seirr.jl")
+include("seirr_ode_log.jl")
+include("bayes_seirr.jl")
+
 end
