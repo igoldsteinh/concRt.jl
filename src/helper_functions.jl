@@ -1,8 +1,19 @@
-# julia helper functions
+"""
+    power(a,b)
+
+    Raise `a` to the `b` power 
+"""
 function power(a,b)
     a^b
   end 
-  
+
+"""
+    ChainsCustomIndex(c::Chains, indices_to_keep::BitMatrix)
+
+Reduce Chains object to only wanted indices. 
+
+Function created by Damon Bayer. 
+"""
 function ChainsCustomIndex(c::Chains, indices_to_keep::BitMatrix)
     min_length = minimum(mapslices(sum, indices_to_keep, dims = 1))
   v = c.value
@@ -13,7 +24,7 @@ function ChainsCustomIndex(c::Chains, indices_to_keep::BitMatrix)
   Chains(aa, c.logevidence, c.name_map, c.info)
 end
 
-# new functions for getting generated quantities
+# Series of functions for creating correctly scaled parameter draws. 
 # code snippet shared by @torfjelde
 # https://gist.github.com/torfjelde/37be5a672d29e473983b8e82b45c2e41
 generate_names(val) = generate_names("", val)

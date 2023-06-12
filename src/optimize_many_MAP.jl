@@ -1,8 +1,10 @@
-# julia helper functions
-
-
 """
+    optimize_many_MAP(model, n_reps = 100, top_n = 1, verbose = true)
+
 Try n_reps different initializations to get MAP estimate.
+
+Function by Damon Bayer
+
 """
 function optimize_many_MAP(model, n_reps = 100, top_n = 1, verbose = true)
   lp_res = repeat([-Inf], n_reps)

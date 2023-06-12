@@ -9,13 +9,13 @@ default priors are for scenario 1, and assume the model is being fit to a weekly
 -`obstimes::Float64`: times cases are observed
 -`param_change_times::Float64`: times when the reproduction number is allowed to change
 -`extra_ode_precision::Boolean`: if true, uses custom ode precisions, otherwise uses default values 
+-`prob`: DifferentialEquations ODEProblem 
 -`fit_abs_tol::Float64 = 1e-9`: if `extra_ode_precision` true, absolute tolerance for model fitting 
 -`fit_rel_tol::Float64 = 1e-6`: if `extra_ode_precision` true, relative tolerance for model fitting 
 -`opt_abs_tol::Float64 = 1e-11`: if `extra_ode_precision` true, absolute tolerance for choosing mcmc initial values 
 -`opt_rel_tol::Float64 = 1e-8`: if `extra_ode_precision` true, relative tolerance for choosing mcmc initial values
 -`popsize::Int64 = 100000`: population size
 -`active_pop::Int64 = 90196`: population size - initial size of R compartment
--`seed::Int64 = 1`: random seed 
 -`gamma_sd::Float64 = 0.2`: standard deviation for normal prior of log gamma 
 -`gamma_mean::Float64 =log(1/4)`: mean for normal prior of log gamma 
 -`nu_sd::Float64 = 0.2`: standard deviation for normal prior of log nu
