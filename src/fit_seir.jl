@@ -1,38 +1,43 @@
+"""
+    fit_seir(data_cases, ...)
+Fit the SEIR model to observed case counts to produce a posterior estimate of the effective reproduction number.
 
-# data_cases = [75, 108, 115, 145, 268, 510, 901, 1178, 2112, 2151, 2212, 1780, 1338, 882, 590, 338, 199, 90, 77]
-#     obstimes = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0]
-#     param_change_times = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0]
-#     priors_only = false
-#     n_samples::Int64 = 10
-#     n_chains::Int64 = 1
-#     fit_abs_tol::Float64 = 1e-9
-#     fit_rel_tol::Float64 = 1e-6
-#     opt_abs_tol::Float64 = 1e-11
-#     opt_rel_tol::Float64 = 1e-8
-#     seed::Int64 = 1
-#     popsize::Int64 = 100000
-#     active_pop::Int64 = 90196
-#     gamma_sd::Float64 = 0.2
-#     gamma_mean::Float64 =log(7/4)
-#     nu_sd::Float64 = 0.2
-#     nu_mean::Float64 = log(7/7)
-#     rho_case_sd::Float64 =  0.4
-#     rho_case_mean::Float64 = -1.386294
-#     phi_sd::Float64 = 0.2
-#     phi_mean::Float64 = log(50)
-#     sigma_R0_sd::Float64 = 0.2
-#     sigma_R0_mean::Float64 = log(0.1)
-#     S_SEI_sd::Float64 = 0.05
-#     S_SEI_mean::Float64 = 4.83091
-#     I_EI_sd::Float64 = 0.05
-#     I_EI_mean::Float64 = 0.7762621
-#     r0_init_sd::Float64 = 0.1
-#     r0_init_mean::Float64 = log(0.88)
+default priors are for scenario 1, and assume the model is being fit to a weekly time scale
 
-# include("seir_ode_log.jl")
-# include("optimize_many_MAP.jl")
-# include("bayes_seir.jl")
-# include("distribution_functions.jl")
+# Arguments 
+-`data_cases::Int64`: Counts of cases 
+-`obstimes::Float64`: times cases are observed
+-`param_change_times::Float64`: times when the reproduction number is allowed to change
+-`extra_ode_precision::Boolean`: if true, uses custom ode precisions, otherwise uses default values 
+-`priors_only::Boolean`: if true function produces draws from the joint prior distribution
+-`n_samples::Int64 = 250`: number of posterior samples AFTER Burn-in, total samples will be twice `n_samples`
+-`n_chains::Int64 = 4`: number of chains 
+-`fit_abs_tol::Float64 = 1e-9`: if `extra_ode_precision` true, absolute tolerance for model fitting 
+-`fit_rel_tol::Float64 = 1e-6`: if `extra_ode_precision` true, relative tolerance for model fitting 
+-`opt_abs_tol::Float64 = 1e-11`: if `extra_ode_precision` true, absolute tolerance for choosing mcmc initial values 
+-`opt_rel_tol::Float64 = 1e-8`: if `extra_ode_precision` true, relative tolerance for choosing mcmc initial values
+-`popsize::Int64 = 100000`: population size
+-`active_pop::Int64 = 90196`: population size - initial size of R compartment
+-`seed::Int64 = 1`: random seed 
+-`gamma_sd::Float64 = 0.2`: standard deviation for normal prior of log gamma 
+-`gamma_mean::Float64 =log(1/4)`: mean for normal prior of log gamma 
+-`nu_sd::Float64 = 0.2`: standard deviation for normal prior of log nu
+-`nu_mean::Float64 = log(1/7)`: mean for normal prior of log nu
+-`rho_case_sd::Float64= 1.0`: standard devation for normal prior of log rho 
+-`rho_case_mean::Float64 = 0.0`: mean for normal prior of log rho 
+-`phi_sd::Float64 = 1.0`: standard deviation for normal prior of log phi
+-`phi_mean::Float64 = 0.0`: mean for normal prior of log phi 
+-`S_SEI_sd::Float64 = 0.05`: standard deviation for normal prior of logit fraction of active pop initially in S
+-`S_SEI_mean::Float64 = 4.83091`: mean for normal prior of logit fraction of active pop initially in S
+-`I_EI_sd::Float64 = 0.05`: standard deviation for normal prior of logit fraction of the E and I compartments initially in I
+-`I_EI_mean::Float64 = 0.7762621`: mean for normal prior of logit fraction of the E and I compartments initially in I
+-`sigma_R0_sd::Float64 = 0.2`: standard deviation for normal prior of log sigma R0
+-`sigma_R0_mean::Float64 = log(0.1)`: mean for normal prior of log sigma R0
+-`r0_init_sd::Float64 = 0.1`: standard deviation for normal prior of log R0
+-`r0_init_mean::Float64 = log(0.88)`: mean for normal prior of log R0
+
+"""
+
 function fit_seir(data_cases,
                   obstimes,
                   param_change_times,

@@ -8,7 +8,7 @@ default priors are for scenario 1, and assume the model is being fit to a daily 
 -`data::Float64`: Log RNA concentrations
 -`obstimes::Float64`: times RNA concentrations are observed
 -`param_change_times::Float64`: times when the reproduction number is allowed to change
--`priors_only::Boolean`: if TRUE function produces draws from the joint prior distribution
+-`priors_only::Boolean`: if true function produces draws from the joint prior distribution
 -`n_samples::Int64 = 250`: number of posterior samples AFTER Burn-in, total samples will be twice `n_samples`
 -`n_chains::Int64 = 4`: number of chains 
 -`seed::Int64 = 1`: random seed 

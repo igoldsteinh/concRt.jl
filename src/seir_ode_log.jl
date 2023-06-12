@@ -1,4 +1,8 @@
-# seir ode function        
+"""
+    seir_ode_log!(du, u, p, t)
+DifferentialEquations SEIR ODE system 
+
+"""
 function seir_ode_log!(du, u, p, t)
    # S,E,I R1 is recovered but emitting, R2 is recovered and not emitting (done)
    (S, E, I, R, C) = exp.(u)
