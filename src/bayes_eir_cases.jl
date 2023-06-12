@@ -1,4 +1,36 @@
-#bayesian alpha model eirr
+"""
+    bayes_eir_closed!(outs_tmp, ...)
+Turing model for the EIR model. 
+
+default priors are for scenario 1, and assume the model is being fit to a weekly time scale
+
+# Arguments 
+-`outs_tmp`: preallocated matrix used to store ODE solutions, created using the dualcache function from https://github.com/SciML/PreallocationTools.jl
+-`data_cases::Int64`: Counts of cases 
+-`obstimes::Float64`: times cases are observed
+-`param_change_times::Float64`: times when the reproduction number is allowed to change
+-`priors_only::Boolean`: if TRUE function produces draws from the joint prior distribution
+-`n_samples::Int64 = 250`: number of posterior samples AFTER Burn-in, total samples will be twice `n_samples`
+-`n_chains::Int64 = 4`: number of chains 
+-`seed::Int64 = 1`: random seed 
+-`gamma_sd::Float64 = 0.2`: standard deviation for normal prior of log gamma 
+-`gamma_mean::Float64 =log(1/4)`: mean for normal prior of log gamma 
+-`nu_sd::Float64 = 0.2`: standard deviation for normal prior of log nu
+-`nu_mean::Float64 = log(1/7)`: mean for normal prior of log nu
+-`rho_case_sd::Float64= 1.0`: standard devation for normal prior of log rho 
+-`rho_case_mean::Float64 = 0.0`: mean for normal prior of log rho 
+-`phi_sd::Float64 = 1.0`: standard deviation for normal prior of log phi
+-`phi_mean::Float64 = 0.0`: mean for normal prior of log phi 
+-`I_init_sd::Float64 = 0.05`: standard deviation for normal prior of I_init
+-`I_init_mean::Float64 = 489.0`: mean for normal prior of I_init 
+-`E_init_sd::Float64 = 0.05`: standard deviation for normal prior of E_init 
+-`E_init_mean::Float64 = 225.0`: mean for normal prior of E_init 
+-`sigma_rt_sd::Float64 = 0.2`: standard deviation for normal prior on log sigma rt 
+-`sigma_rt_mean::Float64 = log(0.1)`: mean for normal prior on log sigma rt 
+-`rt_init_sd::Float64 = 0.1`: standard deviation for normal prior on log rt_init 
+-`rt_init_mean::Float64 = log(0.88)`: mean for normal prior on log rt_init 
+
+"""
 
 @model function bayes_eir_closed!(outs_tmp, 
                                  data_cases, 
@@ -38,29 +70,15 @@
   nu = exp(nu_non_centered * nu_sd + nu_mean)
   rho_case = logistic(rho_case_non_centered * rho_case_sd + rho_case_mean)
   
-  # print("gamma is")
-  # print(ForwardDiff.value(gamma))
-  # print("nu is")
-  # print(ForwardDiff.value(nu))
   phi_cases = exp(phi_non_centered * phi_sd + phi_mean)
 
-  # print("phi is")
-  # print(ForwardDiff.value(phi_cases))
   sigma_rt_non_centered = rt_params_non_centered[1]
 
   sigma_rt = exp(sigma_rt_non_centered * sigma_rt_sd + sigma_rt_mean)
 
-
-  # print("sigma_rt is")
-  # print(ForwardDiff.value(sigma_rt))
-
   rt_init_non_centered = rt_params_non_centered[2]
 
   rt_init = exp(rt_init_non_centered * rt_init_sd + rt_init_mean)
-
-
-  # print("rt_init")
-  # print(ForwardDiff.value(rt_init))
 
   alpha_init = rt_init * nu
 
@@ -68,55 +86,22 @@
 
   I_init = I_init_non_centered * I_init_sd + I_init_mean
   E_init = E_init_non_centered * E_init_sd + E_init_mean
-  C_init = I_init # Oh no this is fine, b/c then new cases is C[1] - C[0], that makes perfect sense
-  u0 = [E_init, I_init, 1.0, C_init] # Intialize with 1 in R2 so there are no problems when we log for ODE
-
-  # print("starting values are")
-  # print(ForwardDiff.value(u0))
+  C_init = I_init 
+  u0 = [E_init, I_init, 1.0, C_init] 
 
   # Time-varying parameters
   alpha_t_values_no_init = exp.(log(rt_init) .+ cumsum(vec(log_rt_steps_non_centered) * sigma_rt)) * nu
   alpha_t_values_with_init = vcat(alpha_init, alpha_t_values_no_init)
-
-
-  # print("alphas are")
-  # print(ForwardDiff.value(alpha_t_values_with_init))
-
   sol_reg_scale_array = eir_closed_solution!(outs_tmp, 1:obstimes[end], param_change_times, 0.0, alpha_t_values_with_init, u0, gamma, nu)
-  # print("E is ")
-  # print(sol_reg_scale_array[2, :])
-  # print("I is ")
-  # print(sol_reg_scale_array[3, :])
-  # print("R is ")
-  # print(sol_reg_scale_array[4, :])
   if any(!isfinite, sol_reg_scale_array)
     Turing.@addlogprob! -Inf
     return
   end
 
 
-  # cases_pos_mean = (exp.(α_t_values_with_init) .* sol_new_cases / popsize) ./ (expm1.(α_t_values_with_init) .* sol_new_cases / popsize .+ 1)
   new_cases = sol_reg_scale_array[5, 2:end] - sol_reg_scale_array[5, 1:(end-1)]
-  # print(" new cases is ")
-  # print(new_cases)
   cases_mean = new_cases .* rho_case
-  # print(" cases_mean is ")
-  # print(cases_mean)
-  # print(cases_mean)
-  # print(phi_cases)
-  # print(new_cases[1])
-  # print("alpha is")
-  # print(alpha_t_values_with_init[1:2])
-  # print("nu is")
-  # print(nu)
-  # print("gamma is")
-  # print(gamma)
   for i in 1:round(Int64, l_copies)
-    # index = obstimes[i] # index not needed when we're only saving at obstimes
-    # print("i is")
-    # print(i)
-    # print("cases_mean is")
-    # print(ForwardDiff.value(cases_mean[i]))
     data_cases[i] ~ NegativeBinomial2(max(cases_mean[i], 0.0), phi_cases)
   end
 # Generated quantities

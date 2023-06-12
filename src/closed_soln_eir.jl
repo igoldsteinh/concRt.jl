@@ -1,5 +1,18 @@
-# closed solution EIR model
-  
+"""
+    eir_closed_solution!(outs_tmp, times, change_times, t0, alphas, init_conds, gamma, nu)
+Solve the EIR ODE system at `times` beginning from `t0` 
+
+Alpha changes at time `change_times` to the corresponding value of `alphas`
+# Arguments 
+-`outs_tmp`: preallocated matrix used to store ODE solutions, created using the dualcache function from https://github.com/SciML/PreallocationTools.jl
+-`times::float64`: times to save the ODE solution 
+-`t0::float64`: intitial time
+-`alphas::float64`: values of alpha at corresponding values of `times`
+-`init_conds::float64`: initial conditions of the compartments at `t0`
+-`gamma:float64`: inverse of gamma is (loosely) the average time spent in the E compartment 
+-`nu::float64`: inverse of nu is (loosely) the average time spent in the I compartment
+"""
+
 function eir_closed_solution!(outs_tmp, times, change_times, t0, alphas, init_conds, gamma, nu) 
     num_alphas = length(alphas)
     stop_times = vcat(change_times, times[end])
