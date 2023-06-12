@@ -1,8 +1,18 @@
-# closed form solution for eirr model 
-# note this produces Nans when alpha = nu 
-# I'm hoping this can never happen irl but we'll have to see when we test it out
+"""
+    new_eirrc_closed_solution!(outs_tmp, times, change_times, t0, alphas, init_conds, gamma, nu, eta)
+Solve the EIRR ODE system at `times` beginning from `t0` 
 
-# current version which works well
+Alpha changes at time `change_times` to the corresponding value of `alphas`
+# Arguments 
+-`outs_tmp`: preallocated matrix used to store ODE solutions, created using the dualcache function from https://github.com/SciML/PreallocationTools.jl
+-`times::float64`: times to save the ODE solution 
+-`t0::float64`: intitial time
+-`alphas::float64`: values of alpha at corresponding values of `times`
+-`init_conds::float64`: initial conditions of the compartments at `t0`
+-`gamma:float64`: inverse of gamma is (loosely) the average time spent in the E compartment 
+-`nu::float64`: inverse of nu is (loosely) the average time spent in the I compartment
+-`eta::float64`: inverse of eta is (loosely) the average time spent in the R1 compartment 
+"""
 function new_eirrc_closed_solution!(outs_tmp, times, change_times, t0, alphas, init_conds, gamma, nu, eta) 
   num_alphas = length(alphas)
   stop_times = vcat(change_times, times[end])

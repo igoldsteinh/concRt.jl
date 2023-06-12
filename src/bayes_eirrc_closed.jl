@@ -1,4 +1,42 @@
 #bayesian alpha model eirr
+"""
+    bayes_eirrc_closed!(outs_tmp, ...)
+Turing model for the EIRR model. 
+
+default priors are for scenario 1, and assume the model is being fit to a daily time scale
+
+# Arguments 
+-`outs_tmp`: preallocated matrix used to store ODE solutions, created using the dualcache function from https://github.com/SciML/PreallocationTools.jl
+-`data_log_copies::Float64`: Log RNA concentrations
+-`obstimes::Float64`: times RNA concentrations are observed
+-`param_change_times::Float64`: times when the reproduction number is allowed to change
+-`priors_only::Boolean`: if TRUE function produces draws from the joint prior distribution
+-`gamma_sd::Float64 = 0.2`: standard deviation for normal prior of log gamma 
+-`gamma_mean::Float64 =log(1/4)`: mean for normal prior of log gamma 
+-`nu_sd::Float64 = 0.2`: standard deviation for normal prior of log nu
+-`nu_mean::Float64 = log(1/7)`: mean for normal prior of log nu
+-`eta_sd::Float64 = 0.2`: standard deviation for normal prior of log eta 
+-`eta_mean::Float64 = log(1/18)`: mena for normal prior of log eta 
+-`rho_gene_sd::Float64= 1.0`: standard devation for normal prior of log rho 
+-`rho_gene_mean::Float64 = 0.0`: mean for normal prior of log rho 
+-`tau_sd::Float64 = 1.0`: standard deviation for normal prior of log tau
+-`tau_mean::Float64 = 0.0`: mean for normal prior of log tau 
+-`I_init_sd::Float64 = 0.05`: standard deviation for normal prior of I_init
+-`I_init_mean::Float64 = 489.0`: mean for normal prior of I_init 
+-`R1_init_sd::Float64 = 0.05`: standard deviation for normal prior of R1_init 
+-`R1_init_mean::Float64 = 2075.0`: mean for normal prior of R1_init 
+-`E_init_sd::Float64 = 0.05`: standard deviation for normal prior of E_init 
+-`E_init_mean::Float64 = 225.0`: mean for normal prior of E_init 
+-`lambda_mean::Float64 = 5.685528`: mean for normal prior of logit lambda 
+-`lambda_sd::Float64 = 2.178852`: standard deviation for normal prior of logit lambda 
+-`df_shape::Float64 = 2.0`: shape parameter for gamma prior of df
+-`df_scale::Float64 = 10.0`: scale parameter for gamma prior of df 
+-`sigma_rt_sd::Float64 = 0.2`: standard deviation for normal prior on log sigma rt 
+-`sigma_rt_mean::Float64 = log(0.1)`: mean for normal prior on log sigma rt 
+-`rt_init_sd::Float64 = 0.1`: standard deviation for normal prior on log rt_init 
+-`rt_init_mean::Float64 = log(0.88)`: mean for normal prior on log rt_init 
+
+"""
 
 @model function bayes_eirrc_closed!(outs_tmp,
                                     data_log_copies, 
