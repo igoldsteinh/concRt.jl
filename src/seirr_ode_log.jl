@@ -2,7 +2,8 @@
     seirr_ode_log!(du, u, p, t)
 DifferentialEquations SEIRR ODE system 
 
-"""function seirr_ode_log!(du, u, p, t)
+"""
+function seirr_ode_log!(du, u, p, t)
    # S,E,I R1 is recovered but emitting, R2 is recovered and not emitting (done)
    (S, E, I, R1, R2, C) = exp.(u)
    (β, γ, ν, η) = p
