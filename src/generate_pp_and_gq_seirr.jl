@@ -123,7 +123,7 @@ function generate_pp_and_gq_seirr(samples,
 
   missing_data = repeat([missing], length(data))
 
-  my_model = bayes_seirr(
+  my_model_forecast_missing = bayes_seirr(
                         missing_data, 
                         obstimes, 
                         param_change_times, 
