@@ -44,7 +44,7 @@ default priors are for scenario 1, and assume the model is being fit to a daily 
 """
 
 function generate_pp_and_gq_seirr(samples, 
-  data_cases,
+  data,
   obstimes,
   param_change_times,
   extra_ode_precision,
@@ -86,7 +86,7 @@ function generate_pp_and_gq_seirr(samples,
 
 
   my_model = bayes_seirr(
-                        data_cases, 
+                        data, 
                         obstimes, 
                         param_change_times, 
                         extra_ode_precision, 
