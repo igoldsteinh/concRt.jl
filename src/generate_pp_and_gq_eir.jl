@@ -76,7 +76,7 @@ function generate_pp_and_gq_eir(samples,
                             rt_init_mean)
 
 
-  missing_data = repeat([missing], length(data))
+  missing_data = repeat([missing], length(data_cases))
 
   my_model_forecast_missing = bayes_eir_closed!(outs_tmp, 
                             missing_data, 
