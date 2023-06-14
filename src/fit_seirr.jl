@@ -17,7 +17,7 @@ default priors are for scenario 1, and assume the model is being fit to a daily 
 -`opt_abs_tol::Float64 = 1e-11`: if `extra_ode_precision` true, absolute tolerance for choosing mcmc initial values 
 -`opt_rel_tol::Float64 = 1e-8`: if `extra_ode_precision` true, relative tolerance for choosing mcmc initial values
 -`popsize::Int64 = 100000`: population size
--`active_pop::Int64 = 90196`: population size - initial size of R compartment
+-`active_pop::Int64 = 90196`: population size - initial size of R2 compartment
 -`seed::Int64 = 1`: random seed 
 -`gamma_sd::Float64 = 0.2`: standard deviation for normal prior of log gamma 
 -`gamma_mean::Float64 =log(1/4)`: mean for normal prior of log gamma 
