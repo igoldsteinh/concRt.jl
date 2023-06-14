@@ -99,7 +99,7 @@ function generate_pp_and_gq_seir(samples,
     r0_init_mean)
 
 
-  missing_data = repeat([missing], length(data))
+  missing_data = repeat([missing], length(data_cases))
 
   my_model_forecast_missing = bayes_seir(
     missing_data, 
