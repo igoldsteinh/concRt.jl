@@ -17,7 +17,7 @@ default priors are for scenario 1, and assume the model is being fit to a daily 
 -`nu_sd::Float64 = 0.2`: standard deviation for normal prior of log nu
 -`nu_mean::Float64 = log(1/7)`: mean for normal prior of log nu
 -`eta_sd::Float64 = 0.2`: standard deviation for normal prior of log eta 
--`eta_mean::Float64 = log(1/18)`: mena for normal prior of log eta 
+-`eta_mean::Float64 = log(1/18)`: mean for normal prior of log eta 
 -`rho_gene_sd::Float64= 1.0`: standard devation for normal prior of log rho 
 -`rho_gene_mean::Float64 = 0.0`: mean for normal prior of log rho 
 -`tau_sd::Float64 = 1.0`: standard deviation for normal prior of log tau
