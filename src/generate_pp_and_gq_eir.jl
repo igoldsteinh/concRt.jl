@@ -51,7 +51,7 @@ function generate_pp_and_gq_eir(samples,
     rt_init_sd::Float64 = 0.1,
     rt_init_mean::Float64 = log(0.88))
   obstimes = convert(Vector{Float64}, obstimes)
-  outs_tmp = dualcache(zeros(6,length(1:obstimes[end])), 10)
+  outs_tmp = dualcache(zeros(5,length(1:obstimes[end])), 10)
 
 
   my_model = bayes_eir_closed!(outs_tmp, 
