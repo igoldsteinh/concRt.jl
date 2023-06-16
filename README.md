@@ -2,7 +2,6 @@
 
 [![Build Status](https://github.com/igoldsteinh/testpackage.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/igoldsteinh/testpackage.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
-# testpackage
 This package allows users to generate posterior estimates of the effective reproduction number from RNA concentrations and case counts and allows the user to fit the four models described in ``Semiparametric Inference of Effective Reproduction Number
 Dynamics from Wastewater Pathogen RNA Concentrations." 
 
