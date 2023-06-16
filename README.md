@@ -7,7 +7,7 @@ This package allows users to generate posterior estimates of the effective repro
 Dynamics from Wastewater Pathogen RNA Concentrations." 
 
 ## Required Installation Steps
-To install the package from type `]` to activate `pkg`, then use the command 
+To install the package type `]` to activate `pkg`, then use the command 
 ```
 add https://github.com/igoldsteinh/testpackage.jl
 ```
