@@ -1,4 +1,4 @@
-# testpackage
+# concRt
 
 [![Build Status](https://github.com/igoldsteinh/testpackage.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/igoldsteinh/testpackage.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
@@ -8,7 +8,7 @@ Dynamics from Wastewater Pathogen RNA Concentrations."
 ## Required Installation Steps
 To install the package type `]` to activate `pkg`, then use the command 
 ```
-add https://github.com/igoldsteinh/testpackage.jl
+add https://github.com/igoldsteinh/concRt.jl
 ```
 
 ## Example usage
