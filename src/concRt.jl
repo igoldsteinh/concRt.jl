@@ -1,4 +1,4 @@
-module testpackage
+module concRt
 using AxisArrays
 using MCMCChains
 using Optim

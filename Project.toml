@@ -1,4 +1,4 @@
-name = "testpackage"
+name = "concRt"
 uuid = "5c8304af-e30e-4ff3-8668-036f124abd62"
 authors = ["Isaac H Goldstein"]
 version = "1.0.0-DEV"
