@@ -2,8 +2,8 @@
 
 [![Build Status](https://github.com/igoldsteinh/testpackage.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/igoldsteinh/concRt.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
-This package allows users to generate posterior estimates of the effective reproduction number from RNA concentrations and case counts and allows the user to fit the four models described in "Semiparametric Inference of Effective Reproduction Number
-Dynamics from Wastewater Pathogen RNA Concentrations." 
+This package allows users to generate posterior estimates of the effective reproduction number from RNA concentrations and case counts and allows the user to fit the four models described in ["Semiparametric Inference of Effective Reproduction Number
+Dynamics from Wastewater Pathogen RNA Concentrations."](https://arxiv.org/abs/2308.15770) 
 
 ## Required Installation Steps
 To install the package type `]` to activate `pkg`, then use the command 
